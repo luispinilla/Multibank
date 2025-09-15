@@ -9,32 +9,13 @@ trigger:
 pool:
   name: Default  
   demands:
-    - Agent.Name -equals MiAgenteWindows  
+    - Agent.Name -equals VALE  
 
 variables:
   buildConfiguration: 'Release'
 
-jobs:
-- job: BuildAndTest
-  displayName: 'Compilar y probar en agente Windows'
-  steps:
-  - checkout: self
 
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '6.0.x'  # Ajusta según tu versión de .NET
 
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: 'Compilar proyecto'
 
-  - script: dotnet test --no-build --verbosity normal
-    displayName: 'Ejecutar pruebas unitarias'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: 'drop'
-      publishLocation: 'Container'
 
 
